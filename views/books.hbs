@@ -3,7 +3,15 @@
     {{#each userData}}
         <li>{{username}}</li>
         <li>{{password}}</li>
-        <li>Books: {{books.title}}</li>
+        {{#each books}}
+            <li>Books: {{title}}, by {{author}}</li>
+        <h2>Notes:</h2>
+        <ul>
+        {{#each notes}}
+            <li>{{this}}</li>
+        {{/each}}
+        </ul>
+        {{/each}}
     {{/each}}
 </ul>
 <p>HELLO WORLD!</p>
