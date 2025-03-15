@@ -3,12 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
 
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var bookDataRouter = require('./routes/books');
 var createAccount = require('./routes/createAccount');
+var api = require('./routes/api');
+require('./models/db');
 
 var app = express();
 
@@ -22,12 +25,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 // Creates URL and routes to router file
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/books', bookDataRouter);
 app.use('/createAccount', createAccount);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

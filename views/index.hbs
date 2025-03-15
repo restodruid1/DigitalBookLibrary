@@ -20,15 +20,33 @@
 </script>
 
 <script>
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
+    document.getElementById("loginForm").addEventListener("submit", async function(event) {
         event.preventDefault();
-        let username = document.getElementById("username").value;
-        let password = document.getElementById("password").value;
+        let username1 = document.getElementById("username").value;
+        let password1 = document.getElementById("password").value;
 
-        console.log(username);
-        console.log(password);
-        console.log("this is a test");
+        console.log(username1);
+        console.log(password1);
+        
 
+        //Fetch login data from database
+        let response = await fetch('http://localhost:3000/api', {
+            method : "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body: JSON.stringify({ username1, password1})
+        });
+        let data = await response.json();
+        //console.log(data);
+        
+        //Render book page for account specified
+        if (data[0].username == username1 && data[0].password == password1) {
+            console.log("THis works!");
+            window.location.href = "/books";
+        } else {
+            console.log("DOes not work :(");
+        }
         this.reset();
     });
 </script>
