@@ -1,2 +1,34 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+
+
+<form id="loginForm">
+    <input id="username" required placeholder="username"><br>
+    <input placeholder="password" id="password" required><br>
+    <button>Login</button><br>
+    
+</form>
+<form id="createAccountForm">
+    <button>Create Account</button>
+</form>
+
+<script>
+    document.getElementById("createAccountForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        window.location.href = "/createAccount";
+    });
+</script>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+
+        console.log(username);
+        console.log(password);
+        console.log("this is a test");
+
+        this.reset();
+    });
+</script>

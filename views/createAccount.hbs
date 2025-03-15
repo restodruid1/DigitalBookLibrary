@@ -1,0 +1,13 @@
+<form id="account">
+    <input id="username" required placeholder="username"><br>
+    <input placeholder="password" id="password" required><br>
+    <input placeholder="confirm password" id="ConfirmPassword" required><br>
+    <button>Create Account</button><br>
+</form>
+
+<script>
+    document.getElementById("account").addEventListener("submit", function(event){
+        event.preventDefault();
+        window.location.href = "/"; //landing page
+    });
+</script>
