@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
-const Data = require('../models/booksData');
+const Data = require('../../app_api/models/booksData');
 const Model = mongoose.model('books');
 
 router.post('/' , async (req, res) => {
