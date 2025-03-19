@@ -20,7 +20,7 @@
 </script>
 
 <script>
-    document.getElementById("loginForm").addEventListener("submit", async function(event) {
+    document.getElementById("loginForm").addEventListener("submit", () => {
         event.preventDefault();
         let username1 = document.getElementById("username").value;
         let password1 = document.getElementById("password").value;
@@ -30,13 +30,21 @@
         
 
         //Fetch login data from database
-        let response = await fetch('http://localhost:3000/api/booksAPI', {
+        fetch('http://localhost:3000/api/booksAPI', {
             method : "POST",
-            headers: {
-                "Content-Type" : "application/json"
-            },
-            body: JSON.stringify({ username1, password1})
+            headers: {"Content-Type" : "application/json"},
+            body: JSON.stringify({ username1, password1})    
+        })
+        .then(response => response.json())
+        .then(result => {
+            let data = JSON.stringify(result)
+            console.log(data);
+            console.log(JSON.stringify(result[0].username));
+            window.location.href = `/books?userData=${encodeURIComponent(result[0].username)}`;
+        })
+        .catch(error => console.error("Error:", error));
         });
+/*
         let data = await response.json();
         console.log(data);
         
@@ -48,7 +56,8 @@
                 headers: {
                     "Content-Type" : "application/json"
                 },
-                body: JSON.stringify({ username1, password1})
+                //body: JSON.stringify({ username1, password1})
+                body: data
             });
             //window.location.href = "/index";
             //console.log("index checked");
@@ -57,5 +66,5 @@
             console.log("DOes not work :(");
         }
         this.reset();
-    });
+    }); */
 </script>

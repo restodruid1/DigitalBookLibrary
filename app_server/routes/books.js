@@ -24,7 +24,8 @@ router.get('/', (req,res) => {
 */
 //router.post('/', booksController.account);
 router.post('/', booksController.account);
-router.get('/', booksController.account2);
+//router.get('/', booksController.account2);
+router.get('/', booksController.account3);
 //router.post('/data', booksController.account);
 router.post('/data', function(req, res, next) {
     console.log("here222222");
