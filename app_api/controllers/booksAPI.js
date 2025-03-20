@@ -4,7 +4,7 @@ const Model = mongoose.model('books');
 
 
 const validateAccount = async(req, res) => {
-    var q = await Model.find({username: req.body.username1, password: req.body.password1}).exec();
+    var q = await Model.find({username: req.body.username, password: req.body.password}).exec();
     //q = await Model.find({username: "Kevin", password: "Bristow"}).exec();
     if(!q) {
         //return res.status(404).json(err);

@@ -20,7 +20,7 @@
 </script>
 
 <script>
-    document.getElementById("loginForm").addEventListener("submit", () => {
+    document.getElementById("loginForm").addEventListener("submit", async (event) => {
         event.preventDefault();
         let username1 = document.getElementById("username").value;
         let password1 = document.getElementById("password").value;
@@ -30,11 +30,16 @@
         
 
         //Fetch login data from database
-        fetch('http://localhost:3000/api/booksAPI', {
+        var response = await fetch('http://localhost:3000/books', {
             method : "POST",
             headers: {"Content-Type" : "application/json"},
-            body: JSON.stringify({ username1, password1})    
-        })
+            body: JSON.stringify({ username: username1, password: password1})    
+        });
+        let data = await response.text();
+        console.log("RESPONSE" + data);
+        document.body.innerHTML = data;
+        });
+        /*
         .then(response => response.json())
         .then(result => {
             let data = JSON.stringify(result)
@@ -43,7 +48,7 @@
             window.location.href = `/books?userData=${encodeURIComponent(result[0].username)}`;
         })
         .catch(error => console.error("Error:", error));
-        });
+        }); */
 /*
         let data = await response.json();
         console.log(data);

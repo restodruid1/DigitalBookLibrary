@@ -33,16 +33,17 @@ const account = async function (req, res, next) {
 
 const account3 = async function (req,res,next) {
     console.log("hi");
-    const userData = req.query.userData;
+    //const userData = req.query.userData;
+    const userData = req.body.username;
     console.log("REQ QUERY" + userData);
-    console.log(JSON.stringify({username:"Kevin", password:"Bristow"}));
+    //console.log(JSON.stringify({username:"Kevin", password:"Bristow"}));
     const options3 = {
         method: "POST",
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({username1:"Kevin", password1:"Bristow"})
+        body: JSON.stringify({username: req.body.username, password: req.body.password})
     };
     await fetch(booksEndpoint, options3)
         .then((res) => res.json())
