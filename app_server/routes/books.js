@@ -27,13 +27,5 @@ router.get('/', (req,res) => {
 //router.get('/', booksController.account2);
 router.post('/', booksController.account3);
 router.get('/', booksController.account3);
-//router.post('/data', booksController.account);
-/*
-router.post('/data', function(req, res, next) {
-    console.log("here222222");
-    //res.render('books', {userData});
-    res.redirect('/books', )
-    console.log("here");
-});
-*/
+
 module.exports = router;
