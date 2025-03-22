@@ -5,7 +5,8 @@
 <form id="loginForm">
     <input id="username" required placeholder="username"><br>
     <input placeholder="password" id="password" required><br>
-    <button>Login</button><br>
+    <button>Login</button> 
+    <p id="errorMessage" style="color: red; display: none;"></p>
     
 </form>
 <form id="createAccountForm">
@@ -35,41 +36,20 @@
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({ username: username1, password: password1})    
         });
-        let data = await response.text();
-        console.log("RESPONSE" + data);
-        document.body.innerHTML = data;
-        });
-        /*
-        .then(response => response.json())
-        .then(result => {
-            let data = JSON.stringify(result)
-            console.log(data);
-            console.log(JSON.stringify(result[0].username));
-            window.location.href = `/books?userData=${encodeURIComponent(result[0].username)}`;
-        })
-        .catch(error => console.error("Error:", error));
-        }); */
-/*
-        let data = await response.json();
-        console.log(data);
-        
-        //Render book page for account specified
-        if (data[0].username == username1 && data[0].password == password1) {
-            console.log("THis works!");
-            let r = await fetch('http://localhost:3000/books/data', {
-                method : "POST",
-                headers: {
-                    "Content-Type" : "application/json"
-                },
-                //body: JSON.stringify({ username1, password1})
-                body: data
-            });
-            //window.location.href = "/index";
-            //console.log("index checked");
-            //window.location.href = "/createAccount";
+        console.log(response);
+        if (response.ok) {
+            console.log("IF BRANCH");
+            let data = await response.text();
+            event.target.reset();
+            document.body.innerHTML = data;
         } else {
-            console.log("DOes not work :(");
+            document.getElementById('errorMessage').innerHTML = "User not found";
+            document.getElementById('errorMessage').style.display = 'inline-block';
+            setTimeout(() => {
+                document.getElementById('errorMessage').innerHTML = "";
+            }, 5000);
+            event.target.reset();
         }
-        this.reset();
-    }); */
+        
+        });
 </script>

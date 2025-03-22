@@ -7,16 +7,16 @@ const validateAccount = async(req, res) => {
     var q = await Model.find({username: req.body.username, password: req.body.password}).exec();
     //q = await Model.find({username: "Kevin", password: "Bristow"}).exec();
     if(!q) {
-        //return res.status(404).json(err);
-        return;
+        return res.status(404);
+        //return;
     }
     else {
+        console.log(q);
         return res.status(200).json(q);
-        //return res.status(200).json(req.body);
     }
 }
 
-const all = async(req, res) => {
+const allData = async(req, res) => {
     const q = await Model.find({}).exec();
     
     if(!q) {
@@ -31,5 +31,5 @@ const all = async(req, res) => {
 
 module.exports = {
     validateAccount,
-    all
+    allData
 };

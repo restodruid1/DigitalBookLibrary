@@ -9,7 +9,7 @@ router
 
 router
     .route("/booksAPI")
-    .get(booksAPIController.all);
+    .get(booksAPIController.allData);
     
 
 
