@@ -1,17 +1,32 @@
+<head>
+    <title>Digital Book Library</title>
+    <link rel='stylesheet' href='/stylesheets/books.css' />
+    <link rel='icon' href='/images/favicon.ico' />
+</head>
 <h1>Users Book</h1>
+<div id="book-container">
+    
+</div>
 <ul>
-    {{#each userData}}
-        <li>{{username}}</li>
-        <li>{{password}}</li>
-        {{#each books}}
-            <li>Books: {{title}}, by {{author}}</li>
-        <h2>Notes:</h2>
-        <ul>
-        {{#each notes}}
-            <li>{{this}}</li>
+        {{#each userData}}
+            <li>{{username}}</li>
+            <li>{{password}}</li>
+            {{#each books}}
+                <li>Books: {{title}}, by {{author}}</li>
+            <h2>Notes:</h2>
+            <ul>
+            {{#each notes}}
+                <li>{{this}}</li>
+            {{/each}}
+            </ul>
+            {{/each}}
         {{/each}}
-        </ul>
-        {{/each}}
-    {{/each}}
-</ul>
-<p>HELLO WORLD!</p>
+    </ul>
+<form id="imageUpload" method="post" enctype="multipart/form-data">
+    <label for="image">Upload Image</label>
+    <input type="file" id="image" name="image" value="" required />
+    <button type="submit">Submit</button>
+</form>
+
+
+          
