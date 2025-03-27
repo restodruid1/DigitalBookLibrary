@@ -1,6 +1,6 @@
 const booksEndpoint = "http:localhost:3000/api/booksAPI";
 const jwt = require('jsonwebtoken');
-
+const verify = require('../routes/middleware');
 
 const getAccountData = async function (req,res) {
     const option = {
@@ -15,8 +15,11 @@ const getAccountData = async function (req,res) {
         .then((res) => res.json())
         .then((data) => {
             console.log(data[0].username);
-            var payload = { username: data[0].username, password: data[0].password};
+            var userName = data[0].username;
+            var passWord = data[0].password;
+            var payload = { username: userName, password: passWord};
             
+            // User found
             if (data.length > 0) {
                 const accessToken = jwt.sign(payload,process.env.JWT_SECRET_KEY, { expiresIn: '1d'});
                 res.cookie('token', accessToken, {
@@ -26,38 +29,11 @@ const getAccountData = async function (req,res) {
                 });
                 res.status(201).json({ accessToken: accessToken, message:"JWT CREATED"});
             } else {
-                res.status(404).json({error: "Not Found"});
+                res.status(404).json({error: "User Not Found"});
             }
         });
 }
 
-const getUserBooks = async function (req, res) {
-    //console.log(req.user.username);
-    //console.log("COOKIES: " + req.cookies.token);
-    var test = jwt.verify(req.cookies.token, process.env.JWT_SECRET_KEY);
-    console.log(test);
-    console.log("THIS ROUTE WORKS");
-    if (req.user) {
-        //res.status(250).json({message: "COOKIE VERIFIED"})
-        var response = await fetch(booksEndpoint + '/user', {
-            method: 'POST',
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({username: req.user.username, password: req.user.password})
-        })
-        .then((res) => res.json())
-        .then(data => res.render('books', { userData: data}));
-
-    }
-    else {
-        res.status(450).json({message: "COOKIE BAD"})
-    }
-}
-
-
 module.exports = {
-    getAccountData,
-    getUserBooks
-};
+    getAccountData
+}

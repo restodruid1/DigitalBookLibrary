@@ -3,7 +3,8 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 
 const verifyToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
+  //const authHeader = req.headers["authorization"];
+  const authHeader = req.cookies.token;
 
     if (!authHeader) {
         return res.status(403).json({ message: "No token provided" });
@@ -12,7 +13,7 @@ const verifyToken = (req, res, next) => {
     // Extract the token from "Bearer <token>"
     const token = authHeader.split(" ")[1];
 
-    jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
+    jwt.verify(authHeader, process.env.JWT_SECRET_KEY, (err, decoded) => {
         if (err) {
             return res.status(401).json({ message: "Invalid or expired token" });
         }
@@ -23,14 +24,4 @@ const verifyToken = (req, res, next) => {
 };  
 
 
-/* GET users listing. 
-router.get('/', verifyToken ,function(req, res, next) {
-  
-  res.json({ message: `Welcome, ${req.user.username}!` });
-});
-
-module.exports = {
-  verifyToken
-};
-module.exports = router;  */
 module.exports = verifyToken;

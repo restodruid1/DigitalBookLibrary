@@ -11,7 +11,8 @@ const cors = require('cors');
 var indexRouter = require('./app_server/routes/index');
 var userRouter = require('./app_server/routes/users');
 var bookDataRouter = require('./app_server/routes/books');
-var createAccount = require('./app_server/routes/createAccount');
+var createAccountRouter = require('./app_server/routes/createAccount');
+var loginRouter = require('./app_server/routes/login');
 var apiRouter = require('./app_api/routes/index');
 
 require('./app_api/models/db');
@@ -28,7 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
+app.use(cors({credentials: true}));
 
 app.use('/api', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
@@ -42,8 +43,9 @@ app.use('/api', (req, res, next) => {
 app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/books', bookDataRouter);
-app.use('/createAccount', createAccount);
+app.use('/createAccount', createAccountRouter);
 app.use('/api', apiRouter);
+app.use('/login', loginRouter);
 
 
 
