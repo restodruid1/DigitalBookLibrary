@@ -1,5 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
+const dotenv = require('dotenv');
+const jwt = require('jsonwebtoken');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -7,14 +9,15 @@ const cors = require('cors');
 
 
 var indexRouter = require('./app_server/routes/index');
-var usersRouter = require('./app_server/routes/users');
+var userRouter = require('./app_server/routes/users');
 var bookDataRouter = require('./app_server/routes/books');
 var createAccount = require('./app_server/routes/createAccount');
 var apiRouter = require('./app_api/routes/index');
+
 require('./app_api/models/db');
 
 var app = express();
-
+dotenv.config();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
@@ -37,10 +40,11 @@ app.use('/api', (req, res, next) => {
 
 // Creates URL and routes to router file
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/users', userRouter);
 app.use('/books', bookDataRouter);
 app.use('/createAccount', createAccount);
 app.use('/api', apiRouter);
+
 
 
 // catch 404 and forward to error handler

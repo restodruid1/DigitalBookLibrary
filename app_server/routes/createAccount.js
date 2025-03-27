@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var createRouter = require('../controllers/createAccount');
 
-router.get('/', (req,res) => {
-    //res.json(userData);
-    res.render('createAccount', '');
-});
+router.post('/', createRouter.registerUser);
+    
 
 module.exports = router;

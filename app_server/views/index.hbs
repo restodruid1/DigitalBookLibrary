@@ -6,8 +6,7 @@
     <input id="username" required placeholder="username"><br>
     <input placeholder="password" id="password" required><br>
     <button>Login</button> 
-    <p id="errorMessage" style="color: red; display: none;"></p>
-    
+    <p id="errorMessage" style="color: red; display: none;"></p>    
 </form>
 <form id="createAccountForm">
     <button>Create Account</button>
@@ -36,12 +35,23 @@
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify({ username: username1, password: password1})    
         });
-        console.log(response);
+        //console.log(response);
+        var data = await response.json();
+        console.log(data);
+        console.log(data.message + " :" + data.accessToken);
+        
         if (response.ok) {
             console.log("IF BRANCH");
-            let data = await response.text();
+            //let data = await response.text();
             event.target.reset();
-            document.body.innerHTML = data;
+            //document.body.innerHTML = data;
+            await fetch('http://localhost:3000/books', {
+                method: "GET",
+                headers: { "Authorization": 'Bearer ' + data.accessToken 
+                }
+            });
+            
+        
         } else {
             document.getElementById('errorMessage').innerHTML = "User not found";
             document.getElementById('errorMessage').style.display = 'inline-block';
@@ -50,6 +60,7 @@
             }, 5000);
             event.target.reset();
         }
-        
+        // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IktldmluIiwiaWF0IjoxNzQzMDQ3MTMxLCJleHAiOjE3NDMxMzM1MzF9.CRaGSx1kVnK7-oPDJoCD4-WD9kOhGpaO0-VZ8O-kbcw
+        // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IktldmluIiwiaWF0IjoxNzQzMDQ3MTY3LCJleHAiOjE3NDMxMzM1Njd9.R8LxaSjJS_X1KGajKl1PjmVGZvrfdXIUl_xQLyBeYo4
         });
 </script>
