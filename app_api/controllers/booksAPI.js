@@ -53,10 +53,6 @@ const createAccount = async(req, res) => {
             const newUser = new Book({
                 username: req.body.username,
                 password: req.body.password,
-                books: [{
-                    title: "1984",
-                    author: "George Orwell",
-                }]
             });
             await newUser.save();
             return res.status(201).json({message : "ACCOUNT CREATED"});
