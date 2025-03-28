@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Data = require('../models/booksData');
+const Book = require('../models/booksData');
 const Model = mongoose.model('books');
 
 
@@ -41,8 +42,34 @@ const userBookData = async(req, res) => {
     }
 }
 
+const createAccount = async(req, res) => {
+    var q = await Model.find({username: req.body.username}).exec();
+    console.log(q);
+    console.log("IN THE DB");
+    if (q.length > 0) {
+        return res.status(404).json({message : "THIS USERNAME ALREADY EXISTS"});
+    } else {
+        try {
+            const newUser = new Book({
+                username: req.body.username,
+                password: req.body.password,
+                books: [{
+                    title: "1984",
+                    author: "George Orwell",
+                }]
+            });
+            await newUser.save();
+            return res.status(201).json({message : "ACCOUNT CREATED"});
+        } catch (error) {
+            res.status(500).json({error: "Error creating account", details: error.message});
+        }
+    }
+    
+}
+
 module.exports = {
     validateAccount,
     allData,
-    userBookData
+    userBookData,
+    createAccount
 };

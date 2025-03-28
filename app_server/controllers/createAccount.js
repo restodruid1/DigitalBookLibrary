@@ -1,5 +1,5 @@
 const registerUser = function(req, res) {
-    const username = req.body.username;
+    res.render('createAccount');
     
 }
 
