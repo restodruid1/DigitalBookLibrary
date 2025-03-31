@@ -59,13 +59,21 @@ const createAccount = async(req, res) => {
         } catch (error) {
             res.status(500).json({error: "Error creating account", details: error.message});
         }
-    }
-    
+    }   
+}
+
+const addBookImage = async(req, res) => {
+    console.log("In the DB" + req.user.username);
+    console.log(req.body);
+    console.log(req.files);
+    //console.log("BUFFER: " + req.files[0].buffer);
+    res.json({message:"FILE SUBMITTED"});
 }
 
 module.exports = {
     validateAccount,
     allData,
     userBookData,
-    createAccount
+    createAccount,
+    addBookImage
 };

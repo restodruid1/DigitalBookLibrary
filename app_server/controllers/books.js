@@ -48,16 +48,25 @@ const getUserBooks = async function (req, res) {
             body: JSON.stringify({username: req.user.username, password: req.user.password})
         })
         .then((res) => res.json())
-        .then(data => res.render('books', { userData: data}));
+        .then(data => res.render('books', { userData: data, cssSheet: "/stylesheets/books.css"}));
 
     }
     else {
-        res.status(450).json({message: "COOKIE BAD"})
+        res.status(450).json({message: "COOKIE BAD"});
     }
+}
+
+const uploadImage = async function (req, res) {
+    console.log("HEREEEE" + req.user.username);
+    console.log(req.body);
+    console.log(req.files);
+    console.log("BUFFER: " + req.files[0].buffer);
+    res.json({message:"FILE SUBMITTED"});
 }
 
 
 module.exports = {
     getAccountData,
-    getUserBooks
+    getUserBooks,
+    uploadImage
 };

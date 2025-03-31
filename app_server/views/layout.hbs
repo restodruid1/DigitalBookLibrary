@@ -2,7 +2,11 @@
 <html>
   <head>
     <title>Digital Book Library</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    {{#if cssSheet}}
+      <link rel='stylesheet' href= '{{ cssSheet }}'/>
+    {{else}}
+      <link rel='stylesheet' href= '/stylesheets/style.css'/>
+    {{/if}}
     <link rel='icon' href='/images/favicon.ico' />
   </head>
   <body>

@@ -1,8 +1,4 @@
-<head>
-    <title>Digital Book Library</title>
-    <link rel='stylesheet' href='/stylesheets/books.css' />
-    <link rel='icon' href='/images/favicon.ico' />
-</head>
+
 <h1>Users Book</h1>
 <div id="book-container">
     
@@ -22,11 +18,48 @@
             {{/each}}
         {{/each}}
     </ul>
-<form id="imageUpload" method="post" enctype="multipart/form-data">
+
+<!--
+<form id="imageUpload" action="books/upload" method="post" enctype="multipart/form-data">
+    <label for="image">Upload Image</label>
+    <input type="file" id="image" name="image" value="" required />
+    <button type="submit">Submit</button>
+</form>
+-->
+<form id="imageUpload">
     <label for="image">Upload Image</label>
     <input type="file" id="image" name="image" value="" required />
     <button type="submit">Submit</button>
 </form>
 
+<script>
+    const form = document.getElementById("imageUpload");
 
-          
+    form.addEventListener("submit", submitForm);
+
+    function submitForm(e) {
+        e.preventDefault();
+        
+        const file = document.getElementById("image");
+        const formData = new FormData();
+        console.log("HERE");
+        formData.append("name", "KEVIN");
+        formData.append("image", file.files[0]);
+        console.log("HERE");
+        
+        /*
+        fetch("http://localhost:3000/books/upload", {
+            method: 'POST',
+            body: formData
+        })
+            .then((res) => console.log(res))
+            .catch((err) => console.log("Error occured", err));
+        */
+        fetch("http://localhost:3000/api/booksAPI/addBookImage", {
+            method: 'POST',
+            body: formData
+        })
+            .then((res) => console.log(res))
+            .catch((err) => console.log("Error occured", err));
+    }
+</script>
