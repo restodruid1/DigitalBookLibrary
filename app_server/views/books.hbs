@@ -8,7 +8,7 @@
             <li>{{username}}</li>
             <li>{{password}}</li>
             {{#each books}}
-                <li>Books: {{title}}, by {{author}}</li>
+                <li>Books: {{title}}, by {{author}}, image {{image}}</li>
             <h2>Notes:</h2>
             <ul>
             {{#each notes}}
@@ -29,6 +29,8 @@
 <form id="imageUpload">
     <label for="image">Upload Image</label>
     <input type="file" id="image" name="image" value="" required />
+    <label for="bookTitle">Book Title</label>
+    <input type="text" id="bookTitle" name="bookTitle" value="" required />
     <button type="submit">Submit</button>
 </form>
 
@@ -41,11 +43,15 @@
         e.preventDefault();
         
         const file = document.getElementById("image");
+        const bookTitle = document.getElementById("bookTitle");
         const formData = new FormData();
         console.log("HERE");
-        formData.append("name", "KEVIN");
+        //console.log("yo" + "{{userData.[0].username}}")
+        formData.append("name", "{{userData.[0].username}}");
+        formData.append("bookTitle", bookTitle.value);
         formData.append("image", file.files[0]);
         console.log("HERE");
+        console.log(formData);
         
         /*
         fetch("http://localhost:3000/books/upload", {
@@ -55,6 +61,8 @@
             .then((res) => console.log(res))
             .catch((err) => console.log("Error occured", err));
         */
+
+        // Send image file to the server
         fetch("http://localhost:3000/api/booksAPI/addBookImage", {
             method: 'POST',
             body: formData
