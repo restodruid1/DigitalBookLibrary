@@ -6,7 +6,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
-
+const hbs = require('hbs');
 
 var indexRouter = require('./app_server/routes/index');
 var userRouter = require('./app_server/routes/users');
@@ -16,6 +16,10 @@ var loginRouter = require('./app_server/routes/login');
 var apiRouter = require('./app_api/routes/index');
 
 require('./app_api/models/db');
+// Handlebars helper function for books.hbs
+hbs.registerHelper('eq', function (a, b) {
+  return a === b;
+});
 
 var app = express();
 dotenv.config();
@@ -23,6 +27,7 @@ dotenv.config();
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'hbs');
+
 
 app.use(logger('dev'));
 app.use(express.json());

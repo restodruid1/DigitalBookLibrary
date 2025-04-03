@@ -1,25 +1,21 @@
-
-<h1>Users Book</h1>
-<div id="book-container">
-    
-</div>
-<ul>
+<h1>My Book</h1>
+<div class="book-container">  
         {{#each userData}}
-            <li>{{username}}</li>
-            <li>{{password}}</li>
             {{#each books}}
-                <li>Books: {{title}}, by {{author}}, image {{image}}</li>
-                <img src="{{image}}">
-            <h2>Notes:</h2>
-            <ul>
-            {{#each notes}}
-                <li>{{this}}</li>
-            {{/each}}
-            </ul>
+                {{#if (eq title "Default Title")}}
+                {{else}} 
+                    <div class="book">
+                    <p class="book-title">{{title}}</p>
+                    <img src="{{image}}" alt="{{title}}">
+                    <p class="book-author">By {{author}}</p>
+                    </div>
+                {{/if}}             
             {{/each}}
         {{/each}}
-    </ul>
-
+        <div class="add-book">
+        <img src="uploads/default/addbook.png">
+        </div>      
+</div>
 <!--
 <form id="imageUpload" action="books/upload" method="post" enctype="multipart/form-data">
     <label for="image">Upload Image</label>
