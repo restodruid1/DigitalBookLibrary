@@ -10,8 +10,8 @@ const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       console.log(req.body.bookTitle);
       const user = req.user.username;
-      fs.mkdirSync('uploads/'+ user, { recursive: true});
-      cb(null, 'uploads/'+user);
+      fs.mkdirSync('public/uploads/'+ user, { recursive: true});
+      cb(null, 'public/uploads/'+user);
     },
     filename: function (req, file, cb) {
       //const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);

@@ -67,7 +67,23 @@ const addBookImage = async(req, res) => {
     console.log(req.body);
     console.log(req.files);
     //console.log("BUFFER: " + req.files[0].buffer);
-    res.json({message:"FILE SUBMITTED"});
+    //res.json({message:"FILE SUBMITTED"});
+    //try {
+        const user = await Model.findOne({username: req.user.username});
+        //console.log(user);
+        //console.log(req.files[0].path);
+        var bookPath = req.files[0].path;
+        bookPath = bookPath.replace(/^public\\/, '');
+        console.log("PATH: " + bookPath);
+        user.books.push({
+            image: bookPath,
+            title: req.body.bookTitle
+        });
+        await user.save();
+        res.status(201).json({message: "Book Added!"});
+    //} catch (err) {
+    //    res.status(500).json({error: err.message});
+    //}
 }
 
 module.exports = {
