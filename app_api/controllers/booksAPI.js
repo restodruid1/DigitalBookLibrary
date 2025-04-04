@@ -77,7 +77,8 @@ const addBookImage = async(req, res) => {
         console.log("PATH: " + bookPath);
         user.books.push({
             image: bookPath,
-            title: req.body.bookTitle
+            title: req.body.bookTitle,
+            author: req.body.bookAuthor
         });
         await user.save();
         res.status(201).json({message: "Book Added!"});

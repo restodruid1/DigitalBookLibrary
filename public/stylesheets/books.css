@@ -63,18 +63,43 @@ h1 {
 .add-book {
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
-    cursor: pointer;
+    padding: 20px;
+    gap: 20px;
     transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .add-book img {
     width: 60px;
     height: 60px;
+    cursor: pointer;
     border-radius: 40%;
 }
 
 .add-book img:hover {
-    background: #e0e0e0;
     transform: translateY(-5px);
+}
+
+#imageUpload {
+    display: none;  
+    flex-direction: column;
+    width:auto;
+    height:fit-content;
+    background: #f9f9f9;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+#image, #bookTitle, #submitForm {
+    cursor: pointer;
+}
+
+#title-label, #submitForm, #author-label {
+    align-items: center;
+    justify-content: center;   
+}
+#upload-image {
+    justify-content: center;
+    align-items: center;
 }

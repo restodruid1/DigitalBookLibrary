@@ -1,4 +1,4 @@
-<h1>My Book</h1>
+<h1>My Books</h1>
 <div class="book-container">  
         {{#each userData}}
             {{#each books}}
@@ -13,16 +13,34 @@
             {{/each}}
         {{/each}}
         <div class="add-book">
-        <img src="uploads/default/addbook.png">
-        </div>      
+            <img src="uploads/default/addbook.png">                       
+        </div>
+        <form id="imageUpload">
+            <div id="upload-image">
+                <label for="image">Upload Image</label>
+                <input type="file" id="image" name="image" value="" required />
+            </div>
+            <div id="title-label">
+                <label for="bookTitle">Book Title: </label>
+                <input type="text" id="bookTitle" name="bookTitle" value="" required />
+            </div>
+            <div id="author-label">
+                <label for="bookAuthor">Book Author: </label>
+                <input type="text" id="bookAuthor" name="bookAuthor" value="" required />
+            </div>
+            <div>
+                <button id="submitForm" type="submit">Submit</button>
+            </div>
+        </form>
 </div>
+
 <!--
 <form id="imageUpload" action="books/upload" method="post" enctype="multipart/form-data">
     <label for="image">Upload Image</label>
     <input type="file" id="image" name="image" value="" required />
     <button type="submit">Submit</button>
 </form>
--->
+
 <form id="imageUpload">
     <label for="image">Upload Image</label>
     <input type="file" id="image" name="image" value="" required />
@@ -30,6 +48,18 @@
     <input type="text" id="bookTitle" name="bookTitle" value="" required />
     <button type="submit">Submit</button>
 </form>
+-->
+<script>
+    const addBook = document.querySelectorAll(".add-book");
+    addBook.forEach(book => {
+        book.addEventListener("click", () => {
+            console.log("CLICKING THE ADD BOOK BUTTON");
+            const bookDataForm = document.getElementById("imageUpload");
+            
+            bookDataForm.style.display = bookDataForm.style.display === "none" ? "flex" : "none";
+        });
+    });  
+</script>
 
 <script>
     const form = document.getElementById("imageUpload");
@@ -41,11 +71,13 @@
         
         const file = document.getElementById("image");
         const bookTitle = document.getElementById("bookTitle");
+        const bookAuthor = document.getElementById("bookAuthor");
         const formData = new FormData();
         console.log("HERE");
         //console.log("yo" + "{{userData.[0].username}}")
         formData.append("name", "{{userData.[0].username}}");
         formData.append("bookTitle", bookTitle.value);
+        formData.append("bookAuthor", bookAuthor.value);
         formData.append("image", file.files[0]);
         console.log("HERE");
         console.log(formData);
@@ -66,5 +98,8 @@
         })
             .then((res) => console.log(res))
             .catch((err) => console.log("Error occured", err));
+        
+        location.reload();
     }
+    form.reset();
 </script>
