@@ -5,9 +5,15 @@
                 {{#if (eq title "Default Title")}}
                 {{else}} 
                     <div class="book">
-                    <p class="book-title">{{title}}</p>
-                    <img src="{{image}}" alt="{{title}}">
-                    <p class="book-author">By {{author}}</p>
+                        <p class="book-title">{{title}}</p>
+                        <div class="image-container" counter="{{@index}}" key="{{image}}">
+                            <img src="{{image}}" alt="{{title}}">
+                            <div class="button-container">
+                                <button class="hover-button notes-btn">Notes</button>
+                                <button class="hover-button edit-btn">Edit</button>
+                            </div>
+                        </div>
+                        <p class="book-author">By {{author}}</p>
                     </div>
                 {{/if}}             
             {{/each}}
@@ -15,7 +21,7 @@
         <div class="add-book">
             <img src="uploads/default/addbook.png">                       
         </div>
-        <form id="imageUpload">
+        <form id="imageUpload" style="display: none;">
             <div id="upload-image">
                 <label for="image">Upload Image</label>
                 <input type="file" id="image" name="image" value="" required />
@@ -34,21 +40,33 @@
         </form>
 </div>
 
-<!--
-<form id="imageUpload" action="books/upload" method="post" enctype="multipart/form-data">
-    <label for="image">Upload Image</label>
-    <input type="file" id="image" name="image" value="" required />
-    <button type="submit">Submit</button>
-</form>
 
-<form id="imageUpload">
-    <label for="image">Upload Image</label>
-    <input type="file" id="image" name="image" value="" required />
-    <label for="bookTitle">Book Title</label>
-    <input type="text" id="bookTitle" name="bookTitle" value="" required />
-    <button type="submit">Submit</button>
-</form>
--->
+<script>
+    document.querySelectorAll('.image-container').forEach(container => {
+            const id = container.getAttribute('counter');
+            const key = container.getAttribute('key');
+
+            // Find buttons inside each image container
+            const notesButton = container.querySelector('.notes-btn');
+            const editButton = container.querySelector('.edit-btn');
+            
+            // Add event listener for Edit button
+            notesButton.addEventListener('click', () => {
+                console.log(`Notes button clicked for Image ${id}`);
+                alert(`Notes Image ${id}`);
+                // Add your edit functionality here
+                console.log(key);
+            });
+
+            // Add event listener for Delete button
+            editButton.addEventListener('click', () => {
+                console.log(`Edit button clicked for Image ${id}`);
+                alert(`Deleting Image ${id}`);
+                // Add your delete functionality here
+            });
+        });
+</script>
+
 <script>
     const addBook = document.querySelectorAll(".add-book");
     addBook.forEach(book => {
@@ -56,7 +74,7 @@
             console.log("CLICKING THE ADD BOOK BUTTON");
             const bookDataForm = document.getElementById("imageUpload");
             
-            bookDataForm.style.display = bookDataForm.style.display === "none" ? "flex" : "none";
+            bookDataForm.style.display = bookDataForm.style.display === "none"  ? "flex" : "none";
         });
     });  
 </script>
@@ -66,7 +84,7 @@
 
     form.addEventListener("submit", submitForm);
 
-    function submitForm(e) {
+    async function submitForm(e) {
         e.preventDefault();
         
         const file = document.getElementById("image");
@@ -82,17 +100,9 @@
         console.log("HERE");
         console.log(formData);
         
-        /*
-        fetch("http://localhost:3000/books/upload", {
-            method: 'POST',
-            body: formData
-        })
-            .then((res) => console.log(res))
-            .catch((err) => console.log("Error occured", err));
-        */
 
         // Send image file to the server
-        fetch("http://localhost:3000/api/booksAPI/addBookImage", {
+        await fetch("http://localhost:3000/api/booksAPI/addBookImage", {
             method: 'POST',
             body: formData
         })
@@ -101,5 +111,7 @@
         
         location.reload();
     }
+    
     form.reset();
+    
 </script>
