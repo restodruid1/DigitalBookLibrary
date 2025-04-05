@@ -51,18 +51,22 @@
             const editButton = container.querySelector('.edit-btn');
             
             // Add event listener for Edit button
-            notesButton.addEventListener('click', () => {
+            notesButton.addEventListener('click', async () => {
                 console.log(`Notes button clicked for Image ${id}`);
                 alert(`Notes Image ${id}`);
                 // Add your edit functionality here
-                console.log(key);
+                //console.log(key);
+
+                // GET to notes page
+                window.location.href = `/notes?id=${id}`;
             });
 
-            // Add event listener for Delete button
+            // Add event listener for edit button
             editButton.addEventListener('click', () => {
                 console.log(`Edit button clicked for Image ${id}`);
                 alert(`Deleting Image ${id}`);
-                // Add your delete functionality here
+                
+                // Add edit functionality
             });
         });
 </script>

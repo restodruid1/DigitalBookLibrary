@@ -87,10 +87,27 @@ const addBookImage = async(req, res) => {
     //}
 }
 
+const getBookNotes = async(req, res) => {
+    //console.log(req.body.bookpath);
+    //console.log(req.user.username);
+    var data = await Model.find({username:req.body.username}).exec();
+    //console.log("DATA: " + data);
+    //console.log(data[0].books);
+    //console.log("DBBBBBB" + req.body.id);
+    //console.log(req.body.username);
+    //console.log("DATA: " + data[0].books[req.body.id].notes);
+    var notes = data[0].books[req.body.id].notes;
+    //console.log(notes);
+    
+    res.status(200).json(notes);
+}
+
+
 module.exports = {
     validateAccount,
     allData,
     userBookData,
     createAccount,
-    addBookImage
+    addBookImage,
+    getBookNotes
 };

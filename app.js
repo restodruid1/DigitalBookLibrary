@@ -14,6 +14,7 @@ var bookDataRouter = require('./app_server/routes/books');
 var createAccountRouter = require('./app_server/routes/createAccount');
 var loginRouter = require('./app_server/routes/login');
 var apiRouter = require('./app_api/routes/index');
+var notesRouter = require('./app_server/routes/notes');
 
 require('./app_api/models/db');
 // Handlebars helper function for books.hbs
@@ -51,6 +52,7 @@ app.use('/books', bookDataRouter);
 app.use('/createAccount', createAccountRouter);
 app.use('/api', apiRouter);
 app.use('/login', loginRouter);
+app.use('/notes', notesRouter);
 
 
 

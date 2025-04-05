@@ -43,5 +43,9 @@ router
     .route("/booksAPI/addBookImage")
     .post(verify, upload.array('image'),booksAPIController.addBookImage);
 
+router
+    .route("/booksAPI/notes")
+    .post( booksAPIController.getBookNotes);
+
 
 module.exports = router;

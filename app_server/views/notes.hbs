@@ -1,0 +1,20 @@
+USER NOTES 
+<ol>
+{{#each data1}}
+    
+    <li>{{this}}</li>
+    
+{{/each}}
+</ol>
+<button id="add-note">Add Note</button>
+
+
+<script>
+    addNote = document.getElementById("add-note").addEventListener("click", (event) => {
+        console.log("ADD NOTE CLICKED");
+        var response = fetch("", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"}
+        });
+    });
+</script>
