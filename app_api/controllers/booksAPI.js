@@ -102,6 +102,25 @@ const getBookNotes = async(req, res) => {
     res.status(200).json(notes);
 }
 
+const getTest = async(req, res) => {
+    console.log(req.body.data);
+    console.log(req.user);
+    var user = await Model.findOne({username:req.user.username});
+    try{
+        //console.log(req.body.id);
+        //console.log(user);
+        var book = user.books[req.body.id]; 
+        //console.log(book);
+        book.notes.push(req.body.data);
+        await user.save();
+
+        res.status(201).json({message: "Note Added"});
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({error: err.message});
+    }
+    
+}
 
 module.exports = {
     validateAccount,
@@ -109,5 +128,6 @@ module.exports = {
     userBookData,
     createAccount,
     addBookImage,
-    getBookNotes
+    getBookNotes,
+    getTest
 };

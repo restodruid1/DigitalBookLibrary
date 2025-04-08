@@ -7,14 +7,50 @@ USER NOTES
 {{/each}}
 </ol>
 <button id="add-note">Add Note</button>
-
+<form id="text-form" onsubmit="return false" style="display: none;">
+    <label for="myTextarea">Enter your text:</label><br>
+    <textarea id="textArea" name="myTextarea" rows="6" cols="50"></textarea><br><br>
+    <button id="submit" type="button" onclick="handle('submit')">Submit</button>
+    <button type="button" onclick="handle('back')">Back</button>
+</form>
 
 <script>
-    addNote = document.getElementById("add-note").addEventListener("click", (event) => {
-        console.log("ADD NOTE CLICKED");
-        var response = fetch("", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"}
-        });
+    async function handle(action) {
+            addNote = document.getElementById("text-form");
+            submitNote = document.getElementById("submit");
+            textData = document.getElementById("textArea").value;
+            if (action === 'submit') {
+                console.log("submit");
+                if (textData.trim() === "") {
+                    alert("Please enter something");
+                    return;
+                }
+                //console.log("ADD NOTE CLICKED");
+                var response = await fetch("http://localhost:3000/api/booksAPI/test", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({data: textData, id: {{ id }} })
+                })
+                .then(res => res.json())
+                .then(data => console.log(data));
+                
+                location.reload();
+                addNote.reset();
+                
+            } else if (action === 'back') {
+                console.log("back");
+                addNote.style.display = "none";
+                document.getElementById("add-note").style.display = "flex";
+                addNote.reset();
+            }              
+        } 
+</script> 
+
+<script>
+    noteButton = document.getElementById("add-note"); 
+    noteButton.addEventListener("click", async (event) => {
+        var textForm = document.getElementById("text-form");
+        textForm.style.display = textForm.style.display === "none"  ? "flex" : "none";
+        noteButton.style.display = "none";
     });
 </script>

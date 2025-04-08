@@ -47,5 +47,9 @@ router
     .route("/booksAPI/notes")
     .post( booksAPIController.getBookNotes);
 
+router
+    .route("/booksAPI/test")
+    .post(verify, booksAPIController.getTest);
+
 
 module.exports = router;
