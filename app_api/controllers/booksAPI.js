@@ -161,6 +161,19 @@ const updateNote = async(req, res) => {
     }    
 }
 
+const deleteBook = async (req, res) => {
+    var user = await Model.findOne({username:req.user.username});
+    try {
+        //console.log("username:" + req.body.username);
+        console.log("username: "+ req.user.username);
+        console.log("BookID: " + req.body.bookId);
+        user.books.splice(req.body.bookId, 1);
+        await user.save();
+        res.status(298).json({message: "Book Deleted"});
+    } catch(err) {
+        res.status(500).json({error: err.message});
+    }
+}
 
 module.exports = {
     validateAccount,
@@ -171,5 +184,6 @@ module.exports = {
     getBookNotes,
     addNote,
     deleteNote,
-    updateNote
+    updateNote,
+    deleteBook
 };

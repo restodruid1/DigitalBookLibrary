@@ -44,6 +44,10 @@ router
     .post(verify, upload.array('image'),booksAPIController.addBookImage);
 
 router
+    .route("/booksAPI/deleteBook")
+    .delete(verify, booksAPIController.deleteBook);
+
+router
     .route("/booksAPI/notes")
     .post( booksAPIController.getBookNotes);
 

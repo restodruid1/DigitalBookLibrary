@@ -16,7 +16,7 @@
                             <img src="{{image}}" alt="{{title}}">
                             <div class="button-container">
                                 <button class="hover-button notes-btn">Notes</button>
-                                <button class="hover-button edit-btn">Edit</button>
+                                <button class="hover-button edit-btn">Delete</button>
                             </div>
                         </div>
                         <p class="book-author">By {{author}}</p>
@@ -77,7 +77,7 @@
 
             // Find buttons inside each image container
             const notesButton = container.querySelector('.notes-btn');
-            const editButton = container.querySelector('.edit-btn');
+            const deleteButton = container.querySelector('.edit-btn');
             
             // Add event listener for Edit button
             notesButton.addEventListener('click', async () => {
@@ -91,12 +91,21 @@
             });
 
             // Add event listener for edit button
-            editButton.addEventListener('click', () => {
+            deleteButton.addEventListener('click', async () => {
                 console.log(`Edit button clicked for Image ${id}`);
-                alert(`Deleting Image ${id}`);
-                
-                // Add edit functionality
-            });
+                //alert(`Deleting Image ${id}`);
+                await fetch("http://localhost:3000/api/booksAPI/deleteBook", {
+                    method: 'DELETE',
+                    headers: {
+                        "Accept": "application/json",
+                        "Content-Type" : "application/json"},
+                        body: JSON.stringify({bookId: id})
+                })
+                .then((res) => console.log(res))
+                .catch((err) => console.log("Error occured", err));
+                location.reload();
+            })
+            
         });
 </script>
 
