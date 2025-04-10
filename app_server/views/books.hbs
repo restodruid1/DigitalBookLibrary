@@ -1,3 +1,9 @@
+<div class="dropdown">
+  <button class="dropdown-btn" id="randomColorBtn" onclick="toggleDropdown()">{{user}}</button>
+  <div id="dropdownContent" class="dropdown-content">
+    <button onclick="logout()">Logout</button>
+  </div>
+</div>
 <h1>My Books</h1>
 <div class="book-container">  
         {{#each userData}}
@@ -40,6 +46,29 @@
         </form>
 </div>
 
+<script>
+    async function logout() {
+        await fetch('/logout', {
+                method: 'POST',
+                credentials: 'include'
+            })
+            .then(() => {
+                alert("logged out");
+                window.location.href = '/';
+            })
+            .catch(error => console.error("Error: ", error));
+    }
+    
+    function toggleDropdown() {
+        document.getElementById("dropdownContent").classList.toggle("show");
+    }
+
+    window.onload = function() {
+        const btn = document.getElementById("randomColorBtn");
+        const randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+        btn.style.backgroundColor = randomColor;
+    };
+</script>
 
 <script>
     document.querySelectorAll('.image-container').forEach(container => {

@@ -48,7 +48,7 @@ const getUserBooks = async function (req, res) {
             body: JSON.stringify({username: req.user.username, password: req.user.password})
         })
         .then((res) => res.json())
-        .then(data => res.render('books', { userData: data, cssSheet: "/stylesheets/books.css"}));
+        .then(data => res.render('books', {userData: data, user:req.user.username[0], cssSheet: "/stylesheets/books.css"}));
 
     }
     else {

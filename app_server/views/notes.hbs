@@ -1,4 +1,13 @@
-USER NOTES 
+<div class="dropdown">
+  <button class="dropdown-btn" id="randomColorBtn" onclick="toggleDropdown()">{{user}}</button>
+  <div id="dropdownContent" class="dropdown-content">
+    <button onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<h1>USER NOTES</h1> 
+<button onclick="history.back()">Back</button>
+
 <ol id="itemList">
 {{#each data1}}    
     <li>
@@ -18,6 +27,30 @@ USER NOTES
     <button id="submit" type="button" onclick="handle('submit')">Submit</button>
     <button type="button" onclick="handle('back')">Back</button>
 </form>
+
+<script>
+    async function logout() {
+        await fetch('/logout', {
+                method: 'POST',
+                credentials: 'include'
+            })
+            .then(() => {
+                alert("logged out");
+                window.location.href = '/';
+            })
+            .catch(error => console.error("Error: ", error));
+    }
+    
+    function toggleDropdown() {
+        document.getElementById("dropdownContent").classList.toggle("show");
+    }
+
+    window.onload = function() {
+        const btn = document.getElementById("randomColorBtn");
+        const randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+        btn.style.backgroundColor = randomColor;
+    };
+</script>
 
 <script>
   async function deleteItem(button) {

@@ -34,6 +34,17 @@ const getAccountData = async function (req,res) {
         });
 }
 
+const accountLogout = async function (req, res) {
+    res.clearCookie('token', {
+        httpOnly: true,
+        sameSite: 'Strict',
+        secure: true
+      });
+      res.sendStatus(200);
+}
+
+
 module.exports = {
-    getAccountData
+    getAccountData,
+    accountLogout
 }
