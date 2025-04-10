@@ -140,6 +140,28 @@ const deleteNote = async(req, res) => {
     
 }
 
+const updateNote = async(req, res) => {
+    
+    var user = await Model.findOne({username:req.user.username});
+    //console.log(user);
+    //console.log(req.body.bookId);
+    //console.log(req.body.noteId);
+    //console.log(req.body);
+    try {
+        var book = user.books[req.body.bookId];
+        //console.log(book.notes);
+        book.notes[req.body.noteId] = req.body.updatedNote;
+        //console.log(book.notes[req.body.noteId]);
+        //console.log(book.notes[req.body.noteId]);
+        //console.log(req.body.updatedNote);
+        book.markModified('notes');     // Tells MongoDB a change was made to an embedded item
+        await user.save();
+        res.status(299).json({message: "Note Updated"});
+    } catch(err) {
+        res.status(500).json({error: err.message});
+    }    
+}
+
 
 module.exports = {
     validateAccount,
@@ -149,5 +171,6 @@ module.exports = {
     addBookImage,
     getBookNotes,
     getTest,
-    deleteNote
+    deleteNote,
+    updateNote
 };

@@ -55,5 +55,9 @@ router
     .route("/booksAPI/deleteNote")
     .delete(verify, booksAPIController.deleteNote);
 
+router
+    .route("/booksAPI/updateNote")
+    .put(verify, booksAPIController.updateNote);
+
 
 module.exports = router;

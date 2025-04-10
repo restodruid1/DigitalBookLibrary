@@ -35,10 +35,10 @@ USER NOTES
     .catch(error => console.error("Error: ", error));
   }
 
-  function editItem(button) {
+  async function editItem(button) {
     const li = button.closest("li");
     const span = li.querySelector(".note-text");
-
+    const noteEleId = li.firstElementChild.id;
     const currentText = span.textContent;
     const input = document.createElement("input");
     input.type = "text";
@@ -47,16 +47,32 @@ USER NOTES
 
     const saveButton = document.createElement("button");
     saveButton.textContent = "Save";
-    saveButton.onclick = () => {
+    saveButton.onclick = async () => {
       span.textContent = input.value;
-      li.replaceChild(span, input);
-      saveButton.remove();
-      button.style.display = "inline";
+      var response = await fetch("http://localhost:3000/api/booksAPI/updateNote", {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({noteId: noteEleId, bookId: {{id}}, updatedNote: input.value})
+    });
+    if (response.ok) {
+        
+        alert("Update Successful");
+        li.replaceChild(span, input);
+    } else {
+        alert("Update Failed");
+    }
+      
+    saveButton.remove();
+    button.style.display = "inline";
+    
+    //location.reload()
     };
+    
 
     li.replaceChild(input, span);
     li.querySelector(".buttons").appendChild(saveButton);
     button.style.display = "none";
+    //location.reload()
   }
 </script>
 
