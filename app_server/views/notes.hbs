@@ -1,18 +1,64 @@
 USER NOTES 
-<ol>
-{{#each data1}}
-    
-    <li>{{this}}</li>
-    
+<ol id="itemList">
+{{#each data1}}    
+    <li>
+        <span class="note-text" id="{{@index}}">{{this}}</span>
+        <div class="buttons">
+            <button onclick="editItem(this)">Edit</button>
+            <button onclick="deleteItem(this)">Delete</button>
+        </div>
+    </li>
 {{/each}}
 </ol>
 <button id="add-note">Add Note</button>
+
 <form id="text-form" onsubmit="return false" style="display: none;">
     <label for="myTextarea">Enter your text:</label><br>
     <textarea id="textArea" name="myTextarea" rows="6" cols="50"></textarea><br><br>
     <button id="submit" type="button" onclick="handle('submit')">Submit</button>
     <button type="button" onclick="handle('back')">Back</button>
 </form>
+
+<script>
+  async function deleteItem(button) {
+    const li = button.closest("li");
+    console.log(li.firstElementChild);
+    const noteEleId = li.firstElementChild.id;
+    console.log(noteEleId);
+    await fetch("http://localhost:3000/api/booksAPI/deleteNote", {
+        method: "DELETE",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({noteId: noteEleId, bookId: {{id}} })
+    })
+    .then(res => res.json())
+    .then(data => {console.log(data),location.reload()})
+    .catch(error => console.error("Error: ", error));
+  }
+
+  function editItem(button) {
+    const li = button.closest("li");
+    const span = li.querySelector(".note-text");
+
+    const currentText = span.textContent;
+    const input = document.createElement("input");
+    input.type = "text";
+    input.className = "edit-input";
+    input.value = currentText;
+
+    const saveButton = document.createElement("button");
+    saveButton.textContent = "Save";
+    saveButton.onclick = () => {
+      span.textContent = input.value;
+      li.replaceChild(span, input);
+      saveButton.remove();
+      button.style.display = "inline";
+    };
+
+    li.replaceChild(input, span);
+    li.querySelector(".buttons").appendChild(saveButton);
+    button.style.display = "none";
+  }
+</script>
 
 <script>
     async function handle(action) {

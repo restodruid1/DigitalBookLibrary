@@ -10,7 +10,7 @@ const getBookNotes = async(req, res) => {
         body: JSON.stringify({id:req.query.id, username:req.user.username})
     })    
     .then(res => res.json())
-    .then(data => res.render('notes', {data1: data, id:req.query.id}))   
+    .then(data => res.render('notes', {data1: data, id:req.query.id, cssSheet: "/stylesheets/notes.css"}))   
     .catch((err) => {
         console.log("Error occured", err);  
     }); 

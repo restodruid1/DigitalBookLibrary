@@ -118,9 +118,28 @@ const getTest = async(req, res) => {
     } catch(err) {
         console.log(err);
         res.status(500).json({error: err.message});
+    }   
+}
+
+const deleteNote = async(req, res) => {
+    
+    var user = await Model.findOne({username:req.user.username});
+    console.log(user);
+    console.log(req.body.bookId);
+    console.log(req.body.noteId);
+
+    try {
+        var book = user.books[req.body.bookId];
+        book.notes.splice(req.body.noteId, 1);
+        console.log(book);
+        await user.save();
+        res.status(299).json({message: "Note Deleted"});
+    } catch(err) {
+        res.status(500).json({error: err.message});
     }
     
 }
+
 
 module.exports = {
     validateAccount,
@@ -129,5 +148,6 @@ module.exports = {
     createAccount,
     addBookImage,
     getBookNotes,
-    getTest
+    getTest,
+    deleteNote
 };

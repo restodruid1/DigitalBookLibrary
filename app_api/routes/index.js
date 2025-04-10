@@ -51,5 +51,9 @@ router
     .route("/booksAPI/test")
     .post(verify, booksAPIController.getTest);
 
+router
+    .route("/booksAPI/deleteNote")
+    .delete(verify, booksAPIController.deleteNote);
+
 
 module.exports = router;
