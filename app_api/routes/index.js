@@ -48,8 +48,8 @@ router
     .post( booksAPIController.getBookNotes);
 
 router
-    .route("/booksAPI/test")
-    .post(verify, booksAPIController.getTest);
+    .route("/booksAPI/addNote")
+    .post(verify, booksAPIController.addNote);
 
 router
     .route("/booksAPI/deleteNote")

@@ -57,7 +57,7 @@ USER NOTES
     if (response.ok) {
         
         alert("Update Successful");
-        li.replaceChild(span, input);
+        //li.replaceChild(span, input);
     } else {
         alert("Update Failed");
     }
@@ -65,14 +65,13 @@ USER NOTES
     saveButton.remove();
     button.style.display = "inline";
     
-    //location.reload()
+    location.reload()
     };
     
 
     li.replaceChild(input, span);
     li.querySelector(".buttons").appendChild(saveButton);
     button.style.display = "none";
-    //location.reload()
   }
 </script>
 
@@ -88,7 +87,7 @@ USER NOTES
                     return;
                 }
                 //console.log("ADD NOTE CLICKED");
-                var response = await fetch("http://localhost:3000/api/booksAPI/test", {
+                var response = await fetch("http://localhost:3000/api/booksAPI/addNote", {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({data: textData, id: {{ id }} })
