@@ -1,5 +1,7 @@
 body {
-    background-color: beige;
+    background: linear-gradient(135deg, #0f2027, #2c5364);
+    color: #f0f0f0;
+    min-height: 100vh;
 }
 h1 {
     text-align: center;
@@ -49,8 +51,7 @@ button {
 }
 
 .book-author {
-    font-size: 0.9em;
-    color: #666;
+    font-size: 0.9em;   
     margin-top: 5px;
 }
 
@@ -88,22 +89,46 @@ button {
     height:fit-content;
     background: #f9f9f9;
     justify-content: center;
+    /**/
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#image, #bookTitle, #submitForm {
+#image, #submitForm {
     cursor: pointer;
 }
 
 #title-label, #submitForm, #author-label {
     align-items: center;
-    justify-content: center;   
+    justify-content: center; 
+    color: black;  
 }
+#image, #bookTitle, #bookAuthor {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: black;
+}
+
+#submitForm {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
 #upload-image {
     justify-content: center;
     align-items: center;
+    color: black;
 }
 
-/* Image wrapper */
+
 .image-container {
     position: relative;
     display: flex;
@@ -112,7 +137,7 @@ button {
 }
 
 
-/* Button container */
+
 .button-container {
     position: absolute;
     top: 50%;
@@ -124,7 +149,7 @@ button {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Individual buttons */
+
 .hover-button {
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
@@ -141,7 +166,7 @@ button {
     color: black;
 }
 
-/* Show buttons on hover */
+
 .image-container:hover .button-container {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
@@ -154,44 +179,57 @@ button {
     cursor: pointer;
   }
 
-  /* Style for the round button */
   .dropdown-btn {
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    font-size: 24px;
-    transition: background-color 0.3s ease;
+    background-color: #fff;
+    color: #333;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     cursor: pointer;
-  }
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-  .dropdown-content {
+.dropdown-btn:hover {
+    background-color: #f0f0f0;
+}
+
+
+.dropdown-content {
     display: none;
     position: absolute;
     right: 0;
-    background-color: white;
-    min-width: 100px;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-    z-index: 1;
+    margin-top: 5px;
+    background-color: #fff;
+    min-width: 120px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    margin-top: 10px;
+    z-index: 1;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.dropdown-content .logout-btn {
+    width: 100%;
+    padding: 10px 15px;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 14px;
     cursor: pointer;
-  }
+    transition: background-color 0.2s ease;
+}
 
-  .dropdown-content a {
-    color: black;
-    padding: 10px;
-    text-decoration: none;
+.dropdown-content .logout-btn:hover {
+    background-color: #f7f7f7;
+    color: #d9534f;
+}
+  
+.show {
     display: block;
-    text-align: center;
-    
-  }
+}
 
-  .dropdown-content a:hover {
-    background-color: #f1f1f1;
-  }
-
-  .show {
-    display: block;
-  }
+  

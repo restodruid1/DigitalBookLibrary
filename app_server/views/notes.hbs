@@ -1,32 +1,35 @@
-<div class="dropdown">
-  <button class="dropdown-btn" id="randomColorBtn" onclick="toggleDropdown()">{{user}}</button>
-  <div id="dropdownContent" class="dropdown-content">
-    <button onclick="logout()">Logout</button>
-  </div>
+<div id="body">
+    <div class="dropdown">
+    <button class="dropdown-btn" id="randomColorBtn" onclick="toggleDropdown()">{{user}}</button>
+    <div id="dropdownContent" class="dropdown-content">
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+    </div>
+
+    <h1>USER NOTES</h1> 
+    <button onclick="history.back()">Back</button>
+
+    <ol id="itemList">
+    {{#each data1}}    
+        <li>
+            <span class="note-text" id="{{@index}}">{{this}}</span>
+            <div class="buttons">
+                <button onclick="editItem(this)">Edit</button>
+                <button onclick="deleteItem(this)">Delete</button>
+            </div>
+        </li>
+    {{/each}}
+    </ol>
+    <button id="add-note">Add Note</button>
+
+    <form id="text-form" onsubmit="return false" style="display: none;">
+        <label for="myTextarea">Enter your text:</label><br>
+        <textarea id="textArea" name="myTextarea" rows="6" cols="50"></textarea><br><br>
+        <button id="submit" type="button" onclick="handle('submit')">Submit</button>
+        <button type="button" onclick="handle('back')">Back</button>
+    </form>
+
 </div>
-
-<h1>USER NOTES</h1> 
-<button onclick="history.back()">Back</button>
-
-<ol id="itemList">
-{{#each data1}}    
-    <li>
-        <span class="note-text" id="{{@index}}">{{this}}</span>
-        <div class="buttons">
-            <button onclick="editItem(this)">Edit</button>
-            <button onclick="deleteItem(this)">Delete</button>
-        </div>
-    </li>
-{{/each}}
-</ol>
-<button id="add-note">Add Note</button>
-
-<form id="text-form" onsubmit="return false" style="display: none;">
-    <label for="myTextarea">Enter your text:</label><br>
-    <textarea id="textArea" name="myTextarea" rows="6" cols="50"></textarea><br><br>
-    <button id="submit" type="button" onclick="handle('submit')">Submit</button>
-    <button type="button" onclick="handle('back')">Back</button>
-</form>
 
 <script>
     async function logout() {
@@ -55,16 +58,16 @@
 <script>
   async function deleteItem(button) {
     const li = button.closest("li");
-    console.log(li.firstElementChild);
+    //console.log(li.firstElementChild);
     const noteEleId = li.firstElementChild.id;
-    console.log(noteEleId);
+    //console.log(noteEleId);
     await fetch("http://localhost:3000/api/booksAPI/deleteNote", {
         method: "DELETE",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({noteId: noteEleId, bookId: {{id}} })
     })
     .then(res => res.json())
-    .then(data => {console.log(data),location.reload()})
+    .then(data => location.reload())//{console.log(data),location.reload()})
     .catch(error => console.error("Error: ", error));
   }
 
@@ -126,13 +129,13 @@
                     body: JSON.stringify({data: textData, id: {{ id }} })
                 })
                 .then(res => res.json())
-                .then(data => console.log(data));
+                .then(data => data);//console.log(data));
                 
                 location.reload();
                 addNote.reset();
                 
             } else if (action === 'back') {
-                console.log("back");
+                //console.log("back");
                 addNote.style.display = "none";
                 document.getElementById("add-note").style.display = "flex";
                 addNote.reset();

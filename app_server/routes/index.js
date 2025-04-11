@@ -4,7 +4,7 @@ var loginController = require('../controllers/login');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Book Library and Notes' });
+  res.render('index', { title: 'Library and Notes' });
 });
 
 router.post ('/logout', loginController.accountLogout);

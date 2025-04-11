@@ -1,4 +1,4 @@
-const booksEndpoint = "http:localhost:3000/api/booksAPI";
+const booksEndpoint = "http://localhost:3000/api/booksAPI";
 const jwt = require('jsonwebtoken');
 const verify = require('../routes/middleware');
 
@@ -14,7 +14,11 @@ const getAccountData = async function (req,res) {
     await fetch(booksEndpoint, option)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data[0].username);
+            //console.log(data[0].username);
+            if (data.length === 0){
+                res.status(404).json({error: "User Not Found"});
+                return;
+            }
             var userName = data[0].username;
             var passWord = data[0].password;
             var payload = { username: userName, password: passWord};
@@ -31,7 +35,8 @@ const getAccountData = async function (req,res) {
             } else {
                 res.status(404).json({error: "User Not Found"});
             }
-        });
+        })
+        .catch((err) => console.log("Error occured", err));
 }
 
 const accountLogout = async function (req, res) {

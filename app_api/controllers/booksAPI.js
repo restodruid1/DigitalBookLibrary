@@ -6,7 +6,7 @@ const Model = mongoose.model('books');
 
 const validateAccount = async(req, res) => {
     var q = await Model.find({username: req.body.username, password: req.body.password}).exec();
-    
+    //console.log("in the db: " + q);
     if(!q) {
         return res.status(404).json({message: "INVALID ACCOUNT"});
         //return;

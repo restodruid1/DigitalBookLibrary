@@ -1,16 +1,17 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<div class="container">
+    <h1>{{title}}</h1>
+    <h2>Login</h2>
+    <p id="errorMessage">Invalid username or password.</p>
+    <form id="loginForm">
+      <input id="username" required placeholder="username" type="text" />
+      <input id="password" required placeholder="password" type="password" />
+      <button type="submit">Login</button>    
+    </form>
 
-
-<form id="loginForm">
-    <input id="username" required placeholder="username"><br>
-    <input placeholder="password" id="password" required><br>
-    <button>Login</button> 
-    <p id="errorMessage" style="color: red; display: none;"></p>    
-</form>
-<form id="createAccountForm">
-    <button>Create Account</button>
-</form>
+    <form id="createAccountForm">
+      <button type="submit">Create Account</button>
+    </form>
+  </div>
 
 <script>
     document.getElementById("createAccountForm").addEventListener("submit", function(event) {
@@ -24,6 +25,8 @@
         event.preventDefault();
         let username1 = document.getElementById("username").value;
         let password1 = document.getElementById("password").value;
+        console.log("username: " + username1);
+        console.log("password: " + password1);
         
         //Fetch login data from database
         var response = await fetch('http://localhost:3000/login', {

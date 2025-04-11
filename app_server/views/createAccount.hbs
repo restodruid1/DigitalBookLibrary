@@ -1,9 +1,15 @@
-<form id="account">
-    <input id="username" required placeholder="username"><br>
-    <input placeholder="password" id="password" required><br>
-    <input placeholder="confirm password" id="confirmPassword" required><br>
-    <button>Create Account</button><br>
-</form>
+<div class="container">
+    <button class="back-button" onclick="history.back()">← Back</button>
+
+    <h2>Create Account</h2>
+    <p id="errorMessage">Invalid username or password.</p>
+    <form id="account">
+      <input id="username" required placeholder="username" type="text" />
+      <input id="password" required placeholder="password" type="password" />
+      <input id="confirmPassword" required placeholder="confirm password" type="password" />
+      <button type="submit">Create Account</button>
+    </form>
+</div>
 
 
 <script>
@@ -12,10 +18,16 @@
 
         var password = document.getElementById("password").value;
         var confirmPassword = document.getElementById("confirmPassword").value;
-        var username = document.getElementById("username").value;
-
+        var username = document.getElementById("username").value.trim();
+        
         if (password != confirmPassword) {
-            alert("password don't match");
+            //alert("password don't match");
+            document.getElementById('errorMessage').innerHTML = "Passwords Don't Match";
+            document.getElementById('errorMessage').style.display = 'inline-block';
+            setTimeout(() => {
+                document.getElementById('errorMessage').innerHTML = "";
+            }, 5000);
+            event.target.reset();
         } else {
             var response = await fetch('/api/booksAPI/createAccount', {
                 method : "POST",
@@ -25,8 +37,14 @@
             if (response.ok) {
                 window.location.href = '/';
             } else {
-                alert("USERNAME ALREADY EXISTS");
-            }
+                //alert("USERNAME ALREADY EXISTS");
+                document.getElementById('errorMessage').innerHTML = "Username Already Exists";
+                document.getElementById('errorMessage').style.display = 'inline-block';
+                setTimeout(() => {
+                    document.getElementById('errorMessage').innerHTML = "";
+                }, 5000);
+                //event.target.reset();
+                }
         }
     });
 </script>
