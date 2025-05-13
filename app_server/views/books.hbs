@@ -30,18 +30,18 @@
             </div>
             <form id="imageUpload" style="display: none;">
                 <div id="upload-image">
-                    <label for="image">Upload Image</label>
-                    <input type="file" id="image" name="image" value="" required />
+                    <label class="upload-image-30" for="image">Upload Image: </label>
+                    <input class="upload-image-70"type="file" id="image" name="image" value="" required />
                 </div>
                 <div id="title-label">
-                    <label for="bookTitle">Book Title: </label>
-                    <input type="text" id="bookTitle" name="bookTitle" value="" required />
+                    <label class="upload-image-30"for="bookTitle">Book Title: </label>
+                    <input class="upload-image-70"type="text" id="bookTitle" name="bookTitle" value="" required />
                 </div>
                 <div id="author-label">
-                    <label for="bookAuthor">Book Author: </label>
-                    <input type="text" id="bookAuthor" name="bookAuthor" value="" required />
+                    <label class="upload-image-30"for="bookAuthor">Book Author: </label>
+                    <input class="upload-image-70"type="text" id="bookAuthor" name="bookAuthor" value="" required />
                 </div>
-                <div>
+                <div class="submitButton">
                     <button id="submitForm" type="submit">Submit</button>
                 </div>
             </form>
@@ -118,7 +118,12 @@
             //console.log("CLICKING THE ADD BOOK BUTTON");
             const bookDataForm = document.getElementById("imageUpload");
             
-            bookDataForm.style.display = bookDataForm.style.display === "none"  ? "flex" : "none";
+            if (bookDataForm.style.display === "none") {
+                bookDataForm.style.display = "flex";
+                //location.reload();
+            }else {
+                bookDataForm.style.display = "none";
+            }
         });
     });  
 </script>

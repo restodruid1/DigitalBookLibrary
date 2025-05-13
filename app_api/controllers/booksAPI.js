@@ -73,7 +73,7 @@ const addBookImage = async(req, res) => {
         //console.log(user);
         //console.log(req.files[0].path);
         var bookPath = req.files[0].path;
-        bookPath = bookPath.replace(/^public\\/, '');
+        bookPath = bookPath.replace(/^public[\/\\]/, '');
         console.log("PATH: " + bookPath);
         user.books.push({
             image: bookPath,
