@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const Data = require('../models/booksData');
 const Book = require('../models/booksData');
 const Model = mongoose.model('books');
+const fs = require('fs');
+const path = require('path');
 
 
 const validateAccount = async(req, res) => {
@@ -165,10 +167,28 @@ const deleteBook = async (req, res) => {
     var user = await Model.findOne({username:req.user.username});
     try {
         //console.log("username:" + req.body.username);
-        console.log("username: "+ req.user.username);
-        console.log("BookID: " + req.body.bookId);
+        //console.log("username: "+ req.user.username);
+        //console.log("BookID: " + req.body.bookId);
+        //console.log("book info: " + req.body);
+        //console.log(user.books[req.body.bookId].image);
+        const pathToBookImage = 'public/' + user.books[req.body.bookId].image;
+        const fullPath = path.join(__dirname, `../../${pathToBookImage}`);
+        
+        if (fs.existsSync(fullPath)){
+            //console.log("THIS FILE EXISTS ON THE SERVER");
+            fs.unlink(path.join(__dirname, `../../${pathToBookImage}`), (err)=>{
+                if (err) {
+                    console.error(err);
+                }else {
+                    console.log("File Deleted: " + pathToBookImage);
+                }
+            });
+        }else {
+            console.log("THIS FILE DOES NOT EXIST");
+        }
         user.books.splice(req.body.bookId, 1);
         await user.save();
+
         res.status(298).json({message: "Book Deleted"});
     } catch(err) {
         res.status(500).json({error: err.message});
